@@ -12,17 +12,17 @@ public_users.post("/register", (req, res) => {
     if (username && password) {
         if (!isValid(username)) {
             users.push({ "username": username, "password": password });
-            return res.status(200).json({ message: "Customer successfully registred. Now you can login" });
+            return res.status(200).send("Customer successfully registred. Now you can login");
         } else {
-            return res.status(404).json({ message: "Customer already exists!" });
+            return res.status(404).send("Customer already exists!");
         }
     }
-    return res.status(404).json({ message: "Unable to register customer." });
+    return res.status(404).send("Unable to register customer.");
 });
 
 // Get the book list available in the shop
 public_users.get('/', (req, res) => {
-    res.send(JSON.stringify({books}, null, 4));
+    res.send(JSON.stringify(books, null, 4));
 });
 
 
@@ -41,7 +41,7 @@ public_users.get('/author/:author', (req, res) => {
             booksByAuthor.push(books[isbn]);
         }
     }
-    res.send(JSON.stringify({booksbyauthor:booksByAuthor}, null, 4));
+    res.send(JSON.stringify(booksByAuthor, null, 4));
 });
 
 // Get all books based on title
@@ -53,7 +53,7 @@ public_users.get('/title/:title', (req, res) => {
             booksByTitle.push(books[isbn]);
         }
     }
-    res.send(JSON.stringify({booksbytitle:booksByTitle}, null, 4));
+    res.send(JSON.stringify(booksByTitle, null, 4));
 });
 
 //  Get book review
